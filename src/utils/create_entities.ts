@@ -4,7 +4,7 @@ import generateRandomString from './generate_random_string';
 export default (count: number): Entity[] => {
   const entities: Entity[] = [];
   for(let i: number = 0; i < count; i++){
-    entities.push({ id: i, value: generateRandomString() });
+    entities.push({ id: i, value: generateRandomString(), isSelected: false });
   }
 
   return entities;
