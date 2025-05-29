@@ -1,5 +1,6 @@
 import Entity from "./entity";
 
 export default interface Storage {
-  entities: Entity[]
+  entities: Entity[],
+  length: number
 }
