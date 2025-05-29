@@ -1,0 +1,20 @@
+{
+  "name": "takemycode_test",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node-dev src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "~5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "~5.0.2",
+    "@types/node": "~22.15.24",
+    "ts-node-dev": "~2.0.0",
+    "typescript": "~5.8.3"
+  }
+}
