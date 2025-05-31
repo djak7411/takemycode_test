@@ -11,7 +11,7 @@ interface ITableProps {
   setEntities: Function
 }
 
-const Table: FC<ITableProps> = ({entities, fetchEntities, totalPages, setCurPage, curPage, setEntities}) => {
+const Table: FC<ITableProps> = ({entities, fetchEntities, totalPages, setCurPage, curPage}) => {
 
   function onScrollTable(event: SyntheticEvent) {
     const target = (event.target as HTMLElement);

@@ -17,7 +17,6 @@ const TRow: FC<ITRowProps> = ({entity}) => {
       entity.isSelected = !entity.isSelected;
       setIsSelected(entity.isSelected);
     }
-    console.log(entity);
   }
 
   return (
