@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      <Table entities={entities} fetchEntities={fetchEntities} totalPages={totalPages} curPage={curPage} setCurPage={setCurPage} />
+      <Table entities={entities} fetchEntities={fetchEntities} totalPages={totalPages} curPage={curPage} setCurPage={setCurPage} setEntities={setEntities} />
     </div>
   );
 }

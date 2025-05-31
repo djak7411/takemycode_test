@@ -42,16 +42,17 @@ app.post('/sort', (req: Request<{}, {}, { id: number, oldPos: number, newPos: nu
   res.send(200);
 });
 
-app.post('/select', (req: Request<{}, {}, { ids: [number] }>, res: Response) => {
+app.post('/select/:id', (req: Request<{ id: number }>, res: Response) => {
   // на фронте тут будет дебаунс, присвоить сущностям isSelected = true, вернуть сущности
   const affectedEntities: IEntity[] = [];
   storage.entities.forEach(ent => {
-    if(req.body.ids.includes(ent.id)){
-      ent.isSelected = true;
+
+    if(req.params.id == ent.id){
+      ent.isSelected = !ent.isSelected;
       affectedEntities.push(ent);
     }
   })
-  res.send(affectedEntities);
+  res.send(affectedEntities[0]);
 });
 
 app.listen(port, () => {
