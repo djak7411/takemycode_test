@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent } from "react";
+import React, { FC, SyntheticEvent, useState } from "react";
 import IEntity from "../types/entity";
 import TRow from "./TRow";
 
@@ -11,7 +11,9 @@ interface ITableProps {
   setEntities: Function
 }
 
-const Table: FC<ITableProps> = ({entities, fetchEntities, totalPages, setCurPage, curPage}) => {
+const Table: FC<ITableProps> = ({entities, fetchEntities, totalPages, setCurPage, curPage, setEntities}) => {
+
+   const [currentRow, setCurrentRow] = useState<IEntity>();
 
   function onScrollTable(event: SyntheticEvent) {
     const target = (event.target as HTMLElement);
@@ -39,7 +41,7 @@ const Table: FC<ITableProps> = ({entities, fetchEntities, totalPages, setCurPage
         <tbody>
         {
           entities.map(entity => {
-            return <TRow key={entity.id} entity={entity} />
+            return <TRow key={entity.id} entity={entity} entities={entities} setEntities={setEntities} currentRow={currentRow as IEntity} setCurrentRow={setCurrentRow}/>
           })
         }
         </tbody>

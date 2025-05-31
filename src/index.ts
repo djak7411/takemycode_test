@@ -14,6 +14,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req: Request<{}, {}, {}, { search: string, page: number }>, res: Response) => {
   if(req.query.search){
@@ -35,9 +36,18 @@ app.get('/', (req: Request<{}, {}, {}, { search: string, page: number }>, res: R
   }
 });
 
-app.post('/sort', (req: Request<{}, {}, { id: number, oldPos: number, newPos: number }>, res: Response) => {
-  const entity: IEntity = storage.entities.splice(req.body.oldPos, 1)[0];
-  storage.entities.splice(req.body.newPos - 1, 0, entity);
+app.post('/sort', (req: Request<{}, {}, { draggedEntity: IEntity, droppedEntity: IEntity }>, res: Response) => {
+  const dragged = storage.entities.find(ent => {
+    return ent.id === req.body.draggedEntity.id;
+  });
+  const dropped = storage.entities.find(ent => {
+    return ent.id === req.body.droppedEntity.id;
+  });
+  const draggedIndex = storage.entities.indexOf(dragged as IEntity);
+  const droppedIndex = storage.entities.indexOf(dropped as IEntity);
+
+  storage.entities[droppedIndex] = [storage.entities[draggedIndex], storage.entities[draggedIndex] = storage.entities[droppedIndex]][0];
+
   // найти по айдишнику элемент в сущностях, получить его индекс, вставить в новую позицию (мутабельно), вернуть 200
   res.send(200);
 });
