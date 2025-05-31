@@ -4,6 +4,7 @@ import Table from './components/Table';
 import axios from 'axios';
 import IEntity from './types/entity';
 import IEntityResponse from './types/entityResponse';
+import Search from './components/Search';
 
 function App() {
   const [entities, setEntities] = useState<IEntity[]>([]);
@@ -14,7 +15,7 @@ function App() {
   useEffect(() => {
     fetchEntities(curPage);
     //setCurPage(1);
-  }, []);
+  }, [search]);
 
   async function fetchEntities(page: number){
     try {
@@ -26,8 +27,16 @@ function App() {
     }
   }
 
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEntities([]);
+    setCurPage(1);
+    setSearch(event.target.value)
+  }
+
   return (
     <div className="App">
+      <Search onChange={handleNameChange}
+      value={search}/>
       <Table entities={entities} fetchEntities={fetchEntities} totalPages={totalPages} curPage={curPage} setCurPage={setCurPage} setEntities={setEntities} />
     </div>
   );
