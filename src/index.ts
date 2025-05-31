@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { storage } from './storage';
-import Entity from './types/entity';
+import IEntity from './types/entity';
+const cors = require('cors');
 
 const PAGE_SIZE = 20;
 
@@ -12,9 +13,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send('Internal Server Error');
 });
 
+app.use(cors());
+
 app.get('/', (req: Request<{}, {}, {}, { search: string, page: number }>, res: Response) => {
   if(req.query.search){
-    const filteredArray: Entity[] = storage.entities.filter(entity => {
+    const filteredArray: IEntity[] = storage.entities.filter(entity => {
         return entity.value.includes(req.query.search);
       });
     res.send({
@@ -33,7 +36,7 @@ app.get('/', (req: Request<{}, {}, {}, { search: string, page: number }>, res: R
 });
 
 app.post('/sort', (req: Request<{}, {}, { id: number, oldPos: number, newPos: number }>, res: Response) => {
-  const entity: Entity = storage.entities.splice(req.body.oldPos, 1)[0];
+  const entity: IEntity = storage.entities.splice(req.body.oldPos, 1)[0];
   storage.entities.splice(req.body.newPos - 1, 0, entity);
   // найти по айдишнику элемент в сущностях, получить его индекс, вставить в новую позицию (мутабельно), вернуть 200
   res.send(200);
@@ -41,7 +44,7 @@ app.post('/sort', (req: Request<{}, {}, { id: number, oldPos: number, newPos: nu
 
 app.post('/select', (req: Request<{}, {}, { ids: [number] }>, res: Response) => {
   // на фронте тут будет дебаунс, присвоить сущностям isSelected = true, вернуть сущности
-  const affectedEntities: Entity[] = [];
+  const affectedEntities: IEntity[] = [];
   storage.entities.forEach(ent => {
     if(req.body.ids.includes(ent.id)){
       ent.isSelected = true;

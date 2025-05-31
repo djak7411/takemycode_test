@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import Table from './components/Table';
+import axios from 'axios';
+import IEntity from './types/entity';
 
 function App() {
+  const [entities, setEntities] = useState<IEntity[]>([]);
+
+  useEffect(() => {
+    fetchEntities();
+  }, []);
+
+  async function fetchEntities(){
+    try {
+      const resp = await axios.get<IEntity[]>('http://localhost:3000/?page=1');
+      setEntities(resp.data);
+    } catch (e) {
+      alert(e);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table entities={entities} />
     </div>
   );
 }

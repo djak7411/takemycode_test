@@ -1,6 +1,6 @@
 import Entity from "./entity";
 
-export default interface Storage {
+export default interface IStorage {
   entities: Entity[],
   length: number
 }
