@@ -8,9 +8,9 @@ interface ITRowProps {
 const TRow: FC<ITRowProps> = ({entity}) => {
   return (
     <tr>
-      <td>{entity.isSelected}</td>
-      <td>{entity.id}</td>
-      <td>{entity.value}</td>
+      <td align="center">{entity.isSelected}</td>
+      <td align="center">{entity.id}</td>
+      <td align="center">{entity.value}</td>
     </tr>
   );
 }

@@ -3,3 +3,26 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+table {
+  margin: 8px;
+  width: fit-content;
+  max-height: 420px;
+  overflow: auto;
+  display: block;
+  margin: auto;
+  border-spacing: 0;
+  padding-left: 40px;
+}
+tr:nth-child(even){
+  background: #DDD;
+}
+tr:hover{
+  background: #CCC;
+  cursor: pointer;
+}
+th{
+  min-width: 32px
+}
+td{
+  min-width: 32px
+}
