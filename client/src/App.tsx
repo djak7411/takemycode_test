@@ -5,17 +5,19 @@ import axios from 'axios';
 import IEntity from './types/entity';
 import IEntityResponse from './types/entityResponse';
 import Search from './components/Search';
+import { useDebounce } from 'use-debounce';
 
 function App() {
   const [entities, setEntities] = useState<IEntity[]>([]);
   const [curPage, setCurPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
+  const [debouncedSearchValue] = useDebounce(search, 100);
 
   useEffect(() => {
     fetchEntities(curPage);
     //setCurPage(1);
-  }, [search]);
+  }, [debouncedSearchValue]);
 
   async function fetchEntities(page: number){
     try {
@@ -36,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <Search onChange={handleNameChange}
-      value={search}/>
+        value={search}/>
       <Table entities={entities} fetchEntities={fetchEntities} totalPages={totalPages} curPage={curPage} setCurPage={setCurPage} setEntities={setEntities} />
     </div>
   );

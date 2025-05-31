@@ -26,3 +26,6 @@ th{
 td{
   min-width: 32px
 }
+input{
+  margin: 12px;
+}
