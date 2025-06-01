@@ -18,7 +18,6 @@ const TRow: FC<ITRowProps> = ({entity, entities, setCurrentRow, currentRow, setE
 
   async function onClickRow(){
     const resp = await axios.post<Entity>(`${config.host}/select/${entity.id}`);
-    console.log(resp);
     if(resp.status === 200){
       entity.isSelected = !entity.isSelected;
       setIsSelected(entity.isSelected);
@@ -26,7 +25,6 @@ const TRow: FC<ITRowProps> = ({entity, entities, setCurrentRow, currentRow, setE
   }
 
   function dragStartHandler(e: React.DragEvent<Element>, entity: IEntity) {
-    console.log('drag', entity);
     setCurrentRow(entity);
   }
 
