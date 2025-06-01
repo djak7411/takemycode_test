@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import IEntity from '../types/entity';
 import axios from "axios";
 import Entity from "../types/entity";
+import config from "../config/config";
 
 interface ITRowProps {
   entity: IEntity,
@@ -16,7 +17,7 @@ const TRow: FC<ITRowProps> = ({entity, entities, setCurrentRow, currentRow, setE
  
 
   async function onClickRow(){
-    const resp = await axios.post<Entity>(`http://localhost:3000/select/${entity.id}`);
+    const resp = await axios.post<Entity>(`${config.host}/select/${entity.id}`);
     console.log(resp);
     if(resp.status === 200){
       entity.isSelected = !entity.isSelected;
@@ -53,20 +54,7 @@ const TRow: FC<ITRowProps> = ({entity, entities, setCurrentRow, currentRow, setE
 
     modEntities[droppedIndex] = [modEntities[draggedIndex], modEntities[draggedIndex] = modEntities[droppedIndex]][0];
 
-    // const resp = await axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3000/sort',
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //     "Access-Control-Allow-Origin": "*",
-    //   }, 
-    //   data: {
-    //     draggedEntity: JSON.stringify(currentRow),
-    //     droppedEntity: JSON.stringify(entity)
-    //   }
-    // });
-
-    const resp = await axios.post<number>(`http://localhost:3000/sort`, {
+    const resp = await axios.post<number>(`${config.host}/sort`, {
       draggedEntity: currentRow,
       droppedEntity: entity,
     });

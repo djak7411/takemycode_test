@@ -6,6 +6,7 @@ import IEntity from './types/entity';
 import IEntityResponse from './types/entityResponse';
 import Search from './components/Search';
 import { useDebounce } from 'use-debounce';
+import config from './config/config';
 
 function App() {
   const [entities, setEntities] = useState<IEntity[]>([]);
@@ -21,7 +22,7 @@ function App() {
 
   async function fetchEntities(page: number){
     try {
-      const resp = await axios.get<IEntityResponse>(`http://localhost:3000/?page=${page}&search=${search}`);
+      const resp = await axios.get<IEntityResponse>(`${config.host}/data?page=${page}&search=${search}`);
       setEntities([...entities, ...resp.data.data]);
       setTotalPages(resp.data.pages);
     } catch (e) {

@@ -15,9 +15,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 
 app.use(cors());
+app.use(express.static('public'))
 app.use(express.json());
 
-app.get('/', (req: Request<{}, {}, {}, { search: string, page: number }>, res: Response) => {
+app.get('/data', (req: Request<{}, {}, {}, { search: string, page: number }>, res: Response) => {
   if(req.query.search){
     const filteredArray: IEntity[] = storage.entities.filter(entity => {
         return entity.value.includes(req.query.search);
