@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/storage/index.ts","./src/types/entity.d.ts","./src/types/storage.d.ts","./src/utils/create_entities.ts","./src/utils/generate_random_string.ts"],"version":"5.8.3"}

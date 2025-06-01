@@ -6,12 +6,13 @@ const cors = require('cors');
 const PAGE_SIZE = 20;
 
 const app = express();
-const port = 3000;
+const port = process.env.ISPROD ? 80 : 3000;
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.message);
   res.status(500).send('Internal Server Error');
 });
+
 
 app.use(cors());
 app.use(express.json());
