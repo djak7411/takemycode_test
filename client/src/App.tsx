@@ -13,7 +13,7 @@ function App() {
   const [curPage, setCurPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
-  const [debouncedSearchValue] = useDebounce(search, 100);
+  const [debouncedSearchValue] = useDebounce(search, 250);
 
   useEffect(() => {
     fetchEntities(curPage);
